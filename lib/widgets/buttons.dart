@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:govdesign_system/gov_design_system.dart';
 
 /// Botões padrão do Design System gov.br
 
@@ -27,24 +26,8 @@ class GovPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = ElevatedButton.styleFrom(
-      backgroundColor: AppTheme.primaryColor,
-      disabledBackgroundColor: theme.primary40,
-      minimumSize: const Size(0, 40),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
-      textStyle: AppTheme.textTheme.labelLarge?.copyWith(
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-
     final button = ElevatedButton(
       onPressed: disabled ? null : onPressed,
-      style: style,
       child: child,
     );
 
@@ -78,24 +61,8 @@ class GovSecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = OutlinedButton.styleFrom(
-      side: BorderSide(color: AppTheme.primaryColor),
-      disabledForegroundColor: theme.primary40,
-      minimumSize: const Size(0, 40),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
-      textStyle: AppTheme.textTheme.labelLarge?.copyWith(
-        color: AppTheme.primaryColor,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-
     final button = OutlinedButton(
       onPressed: disabled ? null : onPressed,
-      style: style,
       child: child,
     );
 
@@ -131,19 +98,38 @@ class GovTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final button = TextButton(
       onPressed: disabled ? null : onPressed,
-      style: TextButton.styleFrom(
-        minimumSize: const Size(0, 40),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        textStyle: AppTheme.textTheme.labelLarge?.copyWith(
-          color: AppTheme.primaryColor,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
       child: child,
     );
 
     return fullWidth
         ? SizedBox(width: double.infinity, child: button)
         : button;
+  }
+}
+
+/// Botão de ícone (icon button)
+class GovIconButton extends StatelessWidget {
+  /// Ícone do botão
+  final IconData icon;
+
+  /// Callback de clique
+  final VoidCallback onPressed;
+
+  /// Estado desabilitado
+  final bool disabled;
+
+  const GovIconButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    this.disabled = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: disabled ? null : onPressed,
+      icon: Icon(icon),
+    );
   }
 }
