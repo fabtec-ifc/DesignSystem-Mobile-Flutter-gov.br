@@ -39,7 +39,10 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: backgroundColor,
       elevation: 4.0,
-      titleTextStyle: textTheme.titleLarge,
+      titleTextStyle: textTheme.headlineSmall?.copyWith(
+        color: primaryColor,
+        fontWeight: FontWeight.bold,
+      ),
       iconTheme: const IconThemeData(color: primaryColor),
     ),
     colorScheme: const ColorScheme(
@@ -119,14 +122,14 @@ class AppTheme {
       floatingLabelStyle: const TextStyle(color: primaryColor),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFF0C326F), // primary80
+      backgroundColor: Color(0xFF071d41), // primary90
       selectedItemColor: Color(0xFFEDF5FF), // primary05
       unselectedItemColor: Color(0x9981AEFC), // primary30 with 60% opacity
       showSelectedLabels: true,
       showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
     ),
-    dialogTheme: DialogTheme(
+        dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       titleTextStyle: textTheme.headlineSmall,
       contentTextStyle: textTheme.bodyMedium,
@@ -138,6 +141,10 @@ class AppTheme {
     ),
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: primaryColor,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: secondaryColor,
+      shape: CircleBorder(),
     ),
   );
 }
