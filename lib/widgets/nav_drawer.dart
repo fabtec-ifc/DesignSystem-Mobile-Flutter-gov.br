@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:govdesign_system/gov_design_system.dart';
 
-/// Widget para um item de navegação padrão do gov.br
+/// Widget para um item de navegação padrão do gov.br dentro de um [GovNavigationDrawer].
 class GovDrawerItem extends StatelessWidget {
-  /// Texto exibido
+  /// Texto exibido no item.
   final String title;
 
-  /// Ícone exibido antes do texto
+  /// Ícone exibido antes do texto.
   final IconData icon;
 
-  /// Callback ao tocar
+  /// Callback chamado quando o item é tocado.
   final VoidCallback onTap;
 
   const GovDrawerItem({
@@ -21,69 +20,58 @@ class GovDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ListTile(
-      leading: Icon(icon, color: AppTheme.primaryColor),
+      leading: Icon(icon, color: theme.primaryColor),
       title: Text(
         title,
-        style: AppTheme.textTheme.bodyLarge,
+        style: theme.textTheme.bodyLarge?.copyWith(color: theme.primaryColor),
       ),
       onTap: () {
+        // Fecha o drawer antes de chamar o callback.
         Navigator.of(context).pop();
         onTap();
       },
+      splashColor: theme.primaryColor.withOpacity(0.1),
     );
   }
 }
 
-/// Drawer customizado baseado no Design System gov.br
+/// Drawer (menu lateral) customizado baseado no Design System gov.br.
 class GovNavigationDrawer extends StatelessWidget {
-  /// Widget opcional no topo do drawer
+  /// Widget opcional para ser exibido no topo do drawer, como um cabeçalho.
   final Widget? header;
 
-  /// Altura do header em pixels
-  final double headerHeight;
-
-  /// Lista de widgets que serão exibidos no drawer
-  final List<Widget> items;
+  /// A lista de widgets que serão exibidos como itens do drawer.
+  ///
+  /// Geralmente uma lista de [GovDrawerItem].
+  final List<Widget> children;
 
   const GovNavigationDrawer({
     super.key,
     this.header,
-    this.headerHeight = 120.0,
-    required this.items,
+    required this.children,
   });
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> drawerContent = [];
-
-    if (header != null) {
-      drawerContent.add(
-        Container(
-          height: headerHeight,
-          width: double.infinity,
-          color: AppTheme.primaryColor,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(16.0),
-          child: header,
-        ),
-      );
-      drawerContent.add(Divider(height: 1, color: Colors.grey.shade300));
-    }
-
-    drawerContent.add(
-      Expanded(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: items,
-        ),
-      ),
-    );
+    final theme = Theme.of(context);
 
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: drawerContent,
+        children: [
+          if (header != null)
+            Container(
+              padding: const EdgeInsets.all(16.0).add(const EdgeInsets.only(top: 24.0)),
+              color: theme.primaryColor,
+              child: header,
+            ),
+          Expanded(
+            child: ListView(padding: EdgeInsets.zero, children: children),
+          ),
+        ],
       ),
     );
   }

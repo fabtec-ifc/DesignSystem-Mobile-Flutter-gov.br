@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Gov.br Design System Demo',
-      theme: AppTheme.themeData,
+      theme: GovBrTheme.themeData,
       home: const MyHomePage(),
     );
   }
@@ -212,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor,
+                color: GovBrTheme.primaryColor,
               ),
               child: Text(
                 'Menu',
