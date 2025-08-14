@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppTheme {
+class GovBrTheme {
   static const Color primaryColor = Color(0xFF1351B4);
   static const Color secondaryColor = Color(0xFF168821);
 

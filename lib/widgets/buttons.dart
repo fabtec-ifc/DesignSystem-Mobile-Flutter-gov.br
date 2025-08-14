@@ -1,135 +1,106 @@
 import 'package:flutter/material.dart';
 
-/// Botões padrão do Design System gov.br
-
-/// Botão principal (filled)
-class GovPrimaryButton extends StatelessWidget {
-  /// Conteúdo do botão (texto, ícone, etc.)
-  final Widget child;
-
-  /// Callback de clique
-  final VoidCallback onPressed;
-
-  /// Estado desabilitado
-  final bool disabled;
-
-  /// Preenche a largura disponível
-  final bool fullWidth;
-
-  const GovPrimaryButton({
-    super.key,
-    required this.child,
-    required this.onPressed,
-    this.disabled = false,
-    this.fullWidth = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+/// Uma classe de fábrica para criar botões padronizados do Design System gov.br.
+///
+/// Em vez de ter um widget para cada tipo de botão, esta classe fornece
+/// construtores estáticos que retornam widgets de botão do Material já estilizados.
+class GovBrButton {
+  /// Cria um botão primário (preenchido).
+  ///
+  /// É o botão de maior destaque, usado para ações principais.
+  ///
+  /// [label] é o texto exibido no botão.
+  /// [onPressed] é a função chamada quando o botão é tocado.
+  /// [icon] é um widget opcional (geralmente um `Icon`) exibido antes do texto.
+  /// [fullWidth] se `true`, o botão ocupa toda a largura disponível.
+  static Widget primary({
+    required String label,
+    required VoidCallback? onPressed,
+    Widget? icon,
+    bool fullWidth = false,
+  }) {
     final button = ElevatedButton(
-      onPressed: disabled ? null : onPressed,
-      child: child,
+      onPressed: onPressed,
+      child: _buildButtonChild(label, icon),
     );
 
-    return fullWidth
-        ? SizedBox(width: double.infinity, child: button)
-        : button;
+    return fullWidth ? SizedBox(width: double.infinity, child: button) : button;
   }
-}
 
-/// Botão secundário (outlined)
-class GovSecondaryButton extends StatelessWidget {
-  /// Conteúdo do botão 
-  final Widget child;
-
-  /// Callback de clique
-  final VoidCallback onPressed;
-
-  /// Estado desabilitado
-  final bool disabled;
-
-  /// Preenche a largura disponível
-  final bool fullWidth;
-
-  const GovSecondaryButton({
-    super.key,
-    required this.child,
-    required this.onPressed,
-    this.disabled = false,
-    this.fullWidth = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  /// Cria um botão secundário (contornado).
+  ///
+  /// Usado para ações secundárias que precisam de menos destaque que as primárias.
+  ///
+  /// [label] é o texto exibido no botão.
+  /// [onPressed] é a função chamada quando o botão é tocado.
+  /// [icon] é um widget opcional (geralmente um `Icon`) exibido antes do texto.
+  /// [fullWidth] se `true`, o botão ocupa toda a largura disponível.
+  static Widget secondary({
+    required String label,
+    required VoidCallback? onPressed,
+    Widget? icon,
+    bool fullWidth = false,
+  }) {
     final button = OutlinedButton(
-      onPressed: disabled ? null : onPressed,
-      child: child,
+      onPressed: onPressed,
+      child: _buildButtonChild(label, icon),
     );
 
-    return fullWidth
-        ? SizedBox(width: double.infinity, child: button)
-        : button;
+    return fullWidth ? SizedBox(width: double.infinity, child: button) : button;
   }
-}
 
-/// Botão de texto (text button)
-class GovTextButton extends StatelessWidget {
-  /// Conteúdo do botão 
-  final Widget child;
-
-  /// Callback de clique
-  final VoidCallback onPressed;
-
-  /// Estado desabilitado
-  final bool disabled;
-
-  /// Preenche a largura disponível
-  final bool fullWidth;
-
-  const GovTextButton({
-    super.key,
-    required this.child,
-    required this.onPressed,
-    this.disabled = false,
-    this.fullWidth = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  /// Cria um botão de texto.
+  ///
+  /// Usado para ações de menor prioridade, como links ou ações em diálogos.
+  ///
+  /// [label] é o texto exibido no botão.
+  /// [onPressed] é a função chamada quando o botão é tocado.
+  /// [icon] é um widget opcional (geralmente um `Icon`) exibido antes do texto.
+  /// [fullWidth] se `true`, o botão ocupa toda a largura disponível.
+  static Widget text({
+    required String label,
+    required VoidCallback? onPressed,
+    Widget? icon,
+    bool fullWidth = false,
+  }) {
     final button = TextButton(
-      onPressed: disabled ? null : onPressed,
-      child: child,
+      onPressed: onPressed,
+      child: _buildButtonChild(label, icon),
     );
 
-    return fullWidth
-        ? SizedBox(width: double.infinity, child: button)
-        : button;
+    return fullWidth ? SizedBox(width: double.infinity, child: button) : button;
   }
-}
 
-/// Botão de ícone (icon button)
-class GovIconButton extends StatelessWidget {
-  /// Ícone do botão
-  final IconData icon;
-
-  /// Callback de clique
-  final VoidCallback onPressed;
-
-  /// Estado desabilitado
-  final bool disabled;
-
-  const GovIconButton({
-    super.key,
-    required this.icon,
-    required this.onPressed,
-    this.disabled = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  /// Cria um botão de ícone.
+  ///
+  /// Usado para ações comuns em barras de ferramentas ou espaços compactos.
+  ///
+  /// [icon] é o `Icon` a ser exibido.
+  /// [onPressed] é a função chamada quando o botão é tocado.
+  static Widget icon({
+    required Icon icon,
+    required VoidCallback? onPressed,
+    String? tooltip,
+  }) {
     return IconButton(
-      onPressed: disabled ? null : onPressed,
-      icon: Icon(icon),
+      icon: icon,
+      onPressed: onPressed,
+      tooltip: tooltip,
     );
+  }
+
+  /// Constrói o conteúdo interno do botão (ícone + texto).
+  static Widget _buildButtonChild(String label, Widget? icon) {
+    if (icon != null) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon,
+          const SizedBox(width: 8),
+          Text(label),
+        ],
+      );
+    }
+    return Text(label);
   }
 }
