@@ -1,6 +1,6 @@
 # Design System Gov.br para Flutter
 
-![Logo Gov.br](https://raw.githubusercontent.com/fabtec-ifc/DesignSystem-Mobile-Flutter-gov.br/main/images/logo_gov.png)
+![Logo Gov.br](https://www.gov.br/governodigital/pt-br/estrategias-e-governanca-digital/rede-nacional-de-governo-digital/10passos/biblioteca/logo-govbr.png/@@images/image)
 
 Este pacote é uma implementação em Flutter dos componentes de interface e diretrizes visuais do **Design System do Governo Federal do Brasil**. O objetivo é fornecer um conjunto de widgets reutilizáveis e padronizados para facilitar o desenvolvimento de aplicativos móveis consistentes e alinhados à identidade visual do Gov.br.
 
