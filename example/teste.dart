@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:govdesign_system/theme.dart';
+import 'package:govdesign_system_govbr/theme.dart';
 
 void main() {
   runApp(const MyApp());

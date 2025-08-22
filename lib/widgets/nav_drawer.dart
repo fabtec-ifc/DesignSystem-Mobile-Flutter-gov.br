@@ -33,7 +33,7 @@ class GovDrawerItem extends StatelessWidget {
         Navigator.of(context).pop();
         onTap();
       },
-      splashColor: theme.primaryColor.withOpacity(0.1),
+      splashColor: theme.colorScheme.primary.withAlpha((0.1 * 255).toInt()),
     );
   }
 }
