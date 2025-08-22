@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:govdesign_system/gov_design_system.dart';
+import 'package:govdesign_system_govbr/gov_design_system.dart';
 
 /// Widget para um item de navegação padrão do gov.br
 class GovDrawerItem extends StatelessWidget {
